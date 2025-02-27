@@ -1,28 +1,28 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database.js');
+const sequelize = require('../config/database.js'); // Ensure correct import
 
 const Folder = sequelize.define('Folder', {
   folderId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    allow: false,
+    allowNull: false, // Fix: `allow` → `allowNull`
     unique: true
   },
   name: {
     type: DataTypes.STRING,
-    allow: false,
+    allowNull: false, // Fix: `allow` → `allowNull`
     validate: {
       notEmpty: true
     }
   },
   type: {
     type: DataTypes.ENUM('csv', 'img', 'pdf', 'ppt'),
-    allow: false
+    allowNull: false
   },
   maxFileLimit: {
     type: DataTypes.INTEGER,
-    allow: false,
+    allowNull: false,
   }
 }, {
   tableName: 'folders',
