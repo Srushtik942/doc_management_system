@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
-const {createFolder} = require('./controllers/fileController')
+const {createFolder} = require('./controllers/folderController');
+const {updateFolder} = require('./controllers/folderController');
 app.use(express.json());
 
 app.post('/folder/create',createFolder);
+app.put('/folders/:folderId',updateFolder);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT,()=>{

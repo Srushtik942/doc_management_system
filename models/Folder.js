@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database.js'); // Ensure correct import
+const {sequelize} = require('../config/database.js');
 
 const Folder = sequelize.define('Folder', {
   folderId: {
