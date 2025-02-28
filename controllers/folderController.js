@@ -42,11 +42,35 @@ const updateFolder = async(req,res)=>{
 
     res.json({message:"Folder updated successfully!",folder});
 
-}catch(error){
+}  catch(error){
     res.status(500).json({message:"Error updating folder",error});
+    }
 }
 
+// Delete Folder
+
+const deleteFolder = async(req,res)=>{
+    try{
+    const {folderId} = req.params;
+
+    // validation
+    if(!folderId){
+     return res.status(400).json({message:"Check the folder Id again!"});
+    }
+    // finding folder
+    const folder = await Folder.findOne({where:{folderId}});
+
+    if(!folder){
+        return res.status(404).json({message:"Folder is not present!"});
+    }
+
+    await folder.destroy(folderId);
+    return res.status(200).json({message:"Folder deleted successfully!"});
+}
+catch(error){
+    return res.status(500).json({message:"Internal Server Error!",error:error.message});
+}
 
 }
 
-module.exports = {createFolder,updateFolder};
+module.exports = {createFolder,updateFolder,deleteFolder};
