@@ -73,4 +73,19 @@ catch(error){
 
 }
 
-module.exports = {createFolder,updateFolder,deleteFolder};
+// getAllFolders
+
+const getAllFolders = async(req,res)=>{
+    try{
+        const result = await Folder.findAll();
+        if(result.length === 0){
+            return res.status(404).json({message:"Folders are not present!"});
+        }
+        return res.status(200).json({message:"All folders fetched successfully!",result});
+
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
+}
+
+module.exports = {createFolder,updateFolder,deleteFolder,getAllFolders};

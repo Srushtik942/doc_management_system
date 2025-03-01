@@ -7,7 +7,7 @@ const File = sequelize.define('File', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    allow: false,
+    allowNullNull: false,
     unique: true
   },
   folderId: {
@@ -21,24 +21,24 @@ const File = sequelize.define('File', {
   },
   name: {
     type: DataTypes.STRING,
-    allow: false
+    allowNull: false
   },
   description: {
     type: DataTypes.TEXT,
-    allow: true
+    allowNull: true
   },
   type: {
     type: DataTypes.STRING,
-    allow: false
+    allowNull: false
   },
   size: {
     type: DataTypes.INTEGER,
-    allow: false
+    allowNull: false
   },
   uploadedAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-    allow: false
+    allowNull: false
   }
 }, {
   tableName: 'files',
