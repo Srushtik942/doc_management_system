@@ -1,13 +1,18 @@
 const express = require('express');
-const app = express();
 const {createFolder} = require('./controllers/folderController');
 const {updateFolder} = require('./controllers/folderController');
 const {deleteFolder} = require('./controllers/folderController');
+const{uploadFiles} = require('./controllers/fileController');
+const {upload} = require('./middleware/upload.js');
+
+
+const app = express();
 app.use(express.json());
 
 app.post('/folder/create',createFolder);
 app.put('/folders/:folderId',updateFolder);
 app.delete('/folders/:folderId',deleteFolder);
+app.post('/folders/:folderId/files',upload.single('file'), uploadFiles);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT,()=>{
