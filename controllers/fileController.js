@@ -13,9 +13,12 @@ cloudinary.config({
 const uploadFiles = async (req, res) => {
     try {
         const { folderId } = req.params;
-        const { file, description } = req.body;
+        const { description } = req.body;
+        const {file} = req.file;
 
-        console.log("Received File:", file); // Debugging log
+        console.log("headers:",req.headers);
+        console.log("Received File:", req.file); // Debugging log
+        console.log("Request Body:",req.body);
 
         if (!file || !file.originalname) {
             return res.status(400).json({ message: "No file uploaded or invalid file format!" });
