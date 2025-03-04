@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid"); // Ensure UUID generation
+const { v4: uuidv4 } = require("uuid");
 const { File } = require("../models/File");
 const Folder = require("../models/Folder");
 const cloudinary = require("cloudinary").v2;
@@ -13,12 +13,12 @@ cloudinary.config({
 const uploadFiles = async (req, res) => {
     try {
         const { folderId } = req.params;
-        const { description } = req.body;
-        const {file} = req.file;
+        const  {file, description}  = req.body;
+        // const file = req.file;
 
-        console.log("headers:",req.headers);
-        console.log("Received File:", req.file); // Debugging log
-        console.log("Request Body:",req.body);
+        console.log("Headers:", req.headers);
+        console.log("Received File:", req.file);
+        console.log("Request Body:", req.body);
 
         if (!file || !file.originalname) {
             return res.status(400).json({ message: "No file uploaded or invalid file format!" });
@@ -27,7 +27,6 @@ const uploadFiles = async (req, res) => {
         if (!description) {
             return res.status(400).json({ message: "Check your request body again!" });
         }
-
         // Validate Folder
         const folder = await Folder.findOne({ where: { folderId } });
         if (!folder) {
@@ -40,30 +39,23 @@ const uploadFiles = async (req, res) => {
             return res.status(400).json({ message: "Folder has reached the max file limit!" });
         }
 
-        // Upload File to Cloudinary
-        const cloudinaryResponse = await cloudinary.uploader.upload_stream(
-            { resource_type: "auto" },
-            async (error, result) => {
-                if (error) {
-                    return res.status(500).json({ message: "Cloudinary Upload Error!", error: error.message });
-                }
+        // Upload file to Cloudinary without using stream
+        const cloudinaryResponse = await cloudinary.uploader.upload(file.path, {
+            resource_type: "auto",
+        });
 
-                // Save File Details to Database
-                const uploadedFile = await File.create({
-                    fileId: uuidv4(),
-                    name: file.originalname,
-                    type: file.mimetype,
-                    size: file.size,
-                    folderId,
-                    url: result.secure_url, // Store Cloudinary URL
-                    description,
-                });
+        // Save File Details to Database
+        const uploadedFile = await File.create({
+            fileId: uuidv4(),
+            name: file.originalname,
+            type: file.mimetype,
+            size: file.size,
+            folderId,
+            url: cloudinaryResponse.secure_url, // Store Cloudinary URL
+            description,
+        });
 
-                res.status(200).json({ message: "File uploaded successfully!", uploadedFile });
-            }
-        );
-
-        cloudinaryResponse.end(file.buffer); // Pass file buffer for upload
+        res.status(200).json({ message: "File uploaded successfully!", uploadedFile });
 
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error!", error: error.message });

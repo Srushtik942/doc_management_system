@@ -1,0 +1,28 @@
+Guest,Guest Email,Reservation Date,Status,Total Guests,Check-In Date,Check-Out Date,Room Type,Room Size
+John Doe,john.doe@example.com,2023-09-10,Confirmed,2,2023-09-15,2023-09-20,Ocean View,Medium
+Jane Smith,jane.smith@example.com,2023-08-15,Confirmed,4,2023-09-05,2023-09-10,Poolside Villa,Extra Large
+David Brown,david.brown@example.com,2023-07-01,Confirmed,2,2023-07-15,2023-07-20,Beachfront Suite,Large
+Emily Johnson,emily.johnson@example.com,2023-09-25,Pending,1,2023-10-10,2023-10-15,Ocean View,Medium
+Robert Wilson,robert.wilson@example.com,2023-10-12,Confirmed,1,2023-11-05,2023-11-07,Standard Room,Small
+Sarah Adams,sarah.adams@example.com,2023-11-20,Confirmed,3,2023-12-05,2023-12-10,Beachfront Suite,Large
+Michael Miller,michael.miller@example.com,2023-08-05,Confirmed,2,2023-08-20,2023-08-25,Ocean View,Medium
+Laura Taylor,laura.taylor@example.com,2023-07-10,Pending,2,2023-08-01,2023-08-05,Poolside Villa,Deluxe
+Christopher Martinez,christopher.martinez@example.com,2023-09-18,Confirmed,1,2023-10-05,2023-10-08,Beachfront Suite,Large
+Jessica White,jessica.white@example.com,2023-08-01,Confirmed,2,2023-08-10,2023-08-15,Standard Room,Medium
+Andrew Johnson,andrew.johnson@example.com,2023-10-05,Confirmed,1,2023-10-20,2023-10-23,Ocean View,Medium
+Maria Rodriguez,maria.rodriguez@example.com,2023-11-15,Confirmed,4,2023-12-01,2023-12-05,Poolside Villa,Extra Large
+William Lee,william.lee@example.com,2023-09-05,Confirmed,2,2023-09-20,2023-09-23,Beachfront Suite,Large
+Amanda Garcia,amanda.garcia@example.com,2023-08-20,Confirmed,1,2023-09-01,2023-09-03,Standard Room,Small
+Daniel Jackson,daniel.jackson@example.com,2023-07-02,Pending,3,2023-07-18,2023-07-22,Ocean View,Medium
+Elizabeth Taylor,elizabeth.taylor@example.com,2023-10-18,Confirmed,2,2023-11-05,2023-11-10,Poolside Villa,Deluxe
+James Wilson,james.wilson@example.com,2023-08-12,Confirmed,2,2023-08-30,2023-09-02,Beachfront Suite,Large
+Olivia Brown,olivia.brown@example.com,2023-09-30,Confirmed,1,2023-10-15,2023-10-17,Ocean View,Medium
+Joseph Johnson,joseph.johnson@example.com,2023-07-15,Confirmed,2,2023-07-30,2023-08-02,Standard Room,Small
+Sophia Davis,sophia.davis@example.com,2023-11-01,Confirmed,1,2023-11-15,2023-11-18,Poolside Villa,Deluxe
+Matthew Martinez,matthew.martinez@example.com,2023-10-20,Confirmed,3,2023-11-05,2023-11-10,Beachfront Suite,Extra Large
+Isabella Garcia,isabella.garcia@example.com,2023-09-08,Confirmed,2,2023-09-25,2023-09-30,Ocean View,Medium
+Ethan Anderson,ethan.anderson@example.com,2023-08-25,Pending,1,2023-09-10,2023-09-12,Poolside Villa,Deluxe
+Mia Wilson,mia.wilson@example.com,2023-07-10,Confirmed,2,2023-07-25,2023-07-28,Beachfront Suite,Large
+Alexander Thomas,alexander.thomas@example.com,2023-11-05,Confirmed,1,2023-11-20,2023-11-22,Standard Room,Small
+Chloe Jackson,chloe.jackson@example.com,2023-08-15,Confirmed,3,2023-09-01,2023-09-05,Poolside Villa,Deluxe
+Liam Adams,liam.adams@example.com,2023-07-01,Pending,2,2023-07-18,2023-07-20,Ocean View,Medium
