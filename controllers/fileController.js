@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const  File  = require("../models/File");
 const Folder = require("../models/Folder");
+const { where } = require("sequelize");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
@@ -44,18 +45,171 @@ const uploadFiles = async (req, res) => {
             type: file.mimetype,
             size: file.size,
             folderId,
-            // url: cloudinaryResponse.secure_url, // Store Cloudinary URL
             description,
         });
 
         console.log(newFile);
 
         res.status(200).json({ message: "File uploaded successfully!", newFile });
-
-
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error!", error: error.message });
     }
 };
 
-module.exports = { uploadFiles };
+// Update File Description
+
+const updateFileDescription = async(req,res)=>{
+    try{
+    const {folderId , fileId} = req.params;
+    const {description} = req.body;
+
+    if(!folderId || !fileId){
+        return res.status(400).json({message:"Check request body again!"});
+    }
+    if(!description){
+        return res.status(400).json({message:"Please check the description"});
+    }
+
+    const updatedDescription = await File.update(
+        {description},
+        {where:{fileId,folderId}}
+);
+
+   const updateFile = await File.findOne({where:{folderId, fileId}});
+
+
+   res.status(200).json({message:"File description updated successfully!",files:{
+    files:{
+    fileId : fileId,
+    description: description
+    }
+   }});
+
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
+}
+
+// Delete the File
+
+const deleteFile = async(req,res)=>{
+    try{
+    const {folderId, fileId} = req.params;
+    if(!folderId || !fileId){
+        return res.status(400).json({message:"Check path again!"});
+    }
+    const destroyFile = await File.destroy({
+        where:{folderId, fileId}
+    });
+    return res.status(200).json({message:"File deleted successfully!",destroyFile});
+}catch(error){
+  return res.status(500).json({message:"Internal Server Error!",error:error.message});
+}
+}
+
+// get all the files from particular folder
+
+const getAllFiles = async(req,res)=>{
+    try{
+        const {folderId} = req.params;
+        if(!folderId){
+            return res.status(400).json({message:"Check folderId again"});
+        }
+        const getFile = await File.findAll({where:{folderId}});
+
+        if(getFile.length === 0){
+            return res.status(404).json({message:"No files found!"});
+        }
+
+        return res.status(200).json({message:"Files fetched successfully!",files: getFile.map((file)=>({
+         fileId : file.fileId,
+         name : file.name,
+         description : file.description,
+         size: file.size,
+         uploadedAt: file.uploadedAt
+        }))
+        })
+
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!", error:error.message});
+    }
+}
+
+//  Sort Files by Size
+
+const getFileBySort = async(req,res)=>{
+    try{
+    const {folderId} = req.params;
+    const {sort} = req.query;
+
+    if(!folderId){
+        return res.status(400).json({message:"check folderId again!"});
+    }
+    let order = [];
+
+    if(sort === "size"){
+      order = [["size","ASC"]];
+    }
+    else{
+        return res.status(400).json({message:"Invalid sort parameter"});
+    }
+
+    const sortedFile = await File.findAll({where:{folderId}, order});
+
+    if(sortedFile.length === 0){
+        return res.status(404).json({message:"No files found!"});
+    }
+
+    return res.status(200).json({message:"Files sorted by size",
+        files: sortedFile.map((file)=>({
+            fileId: file.fileId,
+            name: file.name,
+            description : file.description,
+            size: file.size,
+            uploadedAt: file.uploadedAt
+
+        }))
+    });
+
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
+}
+
+// sort files by recency
+const sortByRecency = async(req,res)=>{
+    try{
+        const {folderId} = req.params;
+        const {sort} = req.query;
+        if(!folderId){
+            return res.status(400).json({message:"Check the folderId again!"});
+        }
+        let order = [];
+        if(sort === "uploadedAt"){
+           order = [["uploadedAt", "ASC"]];
+        }else{
+            return res.status(400).json({message:"Invalid Sort Parameters!"});
+        }
+        const sortedFiles = await File.findAll({where:{folderId},order});
+
+        if(sortedFiles.length === 0){
+            return res.status(404).json({message:"Files not found!"});
+        }
+        return res.status(200).json({message:"File sorted by recency",
+            files: sortedFiles.map((file)=>({
+            fileId: file.fileId,
+            name: file.name,
+            description : file.description,
+            size: file.size,
+            uploadedAt: file.uploadedAt
+
+            }))
+        });
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
+
+}
+
+
+module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency};
