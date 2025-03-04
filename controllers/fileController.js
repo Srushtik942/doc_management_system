@@ -265,7 +265,4 @@ const getFileMetadata = async(req,res)=>{
     }
 }
 
-
-
-
 module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency,getFilesByType,getFileMetadata};
