@@ -236,10 +236,36 @@ const getFilesByType = async(req,res)=>{
     }catch(error){
         return res.status(500).json({message:"Internal Server Error!",error:error.message});
     }
+}
 
+const getFileMetadata = async(req,res)=>{
+    try{
+        const {folderId} = req.params;
+
+        if(!folderId){
+            return res.status(400).json({message:"check your folderId "});
+        }
+
+        const fetchMetadata = await File.findAll({where:{folderId}});
+
+        if(!fetchMetadata){
+            return res.status(404).json({message:"FolderId is not present!"});
+        }
+
+        return res.status(200).json({message:"Metadata fetched successfully!",
+            file: fetchMetadata.map((file)=>({
+                fileId: file.fileId ,
+                name: file.name,
+                size: file.size,
+                description: file.description
+            }))
+        });
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
 }
 
 
 
 
-module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency,getFilesByType};
+module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency,getFilesByType,getFileMetadata};

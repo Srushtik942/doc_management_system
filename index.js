@@ -11,6 +11,7 @@ const {getAllFiles} = require('./controllers/fileController.js');
 const {getFileBySort} = require('./controllers/fileController.js');
 const {sortByRecency} = require('./controllers/fileController.js');
 const {getFilesByType} = require('./controllers/fileController.js');
+const {getFileMetadata} = require('./controllers/fileController.js');
 
 const app = express();
 app.use(express.json());
@@ -26,6 +27,7 @@ app.get('/folders/:folderId/files',getAllFiles);
 app.get('/folders/:folderId/filesBySort',getFileBySort);
 app.get('/folder/:folderId/filesBySort',sortByRecency);
 app.get('/files',getFilesByType);
+app.get('/folders/:folderId/files/metadata',getFileMetadata);
 
 
 const PORT = process.env.PORT || 3000
