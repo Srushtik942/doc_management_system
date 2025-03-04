@@ -208,8 +208,38 @@ const sortByRecency = async(req,res)=>{
     }catch(error){
         return res.status(500).json({message:"Internal Server Error!",error:error.message});
     }
+}
+
+//  Get Files by Type Across Folders
+const getFilesByType = async(req,res)=>{
+    try{
+    const {type} = req.query;
+
+    if(!type){
+        return res.status(400).json({message:"Check type query again!"});
+    }
+   const fileByType = await File.findAll({where:{type}});
+   console.log("fileByType",fileByType);
+
+   return res.status(200).json({message:"Fetching all the files by type" ,
+    files: fileByType.map((file)=>({
+        fileId: file.fileId,
+        folderId : file.folderId,
+        name :file.name,
+        description : file.description,
+        type : file.type,
+        size: file.size,
+        uploadedAt: file.uploadedAt
+    }))
+   });
+
+    }catch(error){
+        return res.status(500).json({message:"Internal Server Error!",error:error.message});
+    }
 
 }
 
 
-module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency};
+
+
+module.exports = { uploadFiles, updateFileDescription , deleteFile, getAllFiles, getFileBySort, sortByRecency,getFilesByType};

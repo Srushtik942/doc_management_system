@@ -10,6 +10,7 @@ const {deleteFile} = require('./controllers/fileController.js');
 const {getAllFiles} = require('./controllers/fileController.js');
 const {getFileBySort} = require('./controllers/fileController.js');
 const {sortByRecency} = require('./controllers/fileController.js');
+const {getFilesByType} = require('./controllers/fileController.js');
 
 const app = express();
 app.use(express.json());
@@ -23,7 +24,8 @@ app.delete('/folders/:folderId/files/:fileId',deleteFile);
 app.get('/folders',getAllFolders);
 app.get('/folders/:folderId/files',getAllFiles);
 app.get('/folders/:folderId/filesBySort',getFileBySort);
-app.get('/folders/:folderId/filesBySort',sortByRecency);
+app.get('/folder/:folderId/filesBySort',sortByRecency);
+app.get('/files',getFilesByType);
 
 
 const PORT = process.env.PORT || 3000
