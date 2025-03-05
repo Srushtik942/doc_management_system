@@ -136,7 +136,6 @@ const getAllFiles = async(req,res)=>{
 }
 
 //  Sort Files by Size
-
 const getFileBySort = async(req,res)=>{
     try{
     const {folderId} = req.params;
