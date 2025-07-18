@@ -18,7 +18,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "postinstall": "npm install pg"
+    "postinstall": "npm install pg",
+    "vercel-build": "npm ci"
   },
   "keywords": [],
   "author": "",
