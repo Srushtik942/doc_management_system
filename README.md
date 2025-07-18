@@ -59,11 +59,6 @@ This API-based Document Management System allows users to create folders with re
 | 🔃 GET     | `/folders/:folderId/filesBySort`   | Get files sorted by criteria |
 | 🔎 GET     | `/files`                           | Get files filtered by type   |
 
-
-![alt text](image-2.png)
-
-![alt text](image-3.png)
-
 ![alt text](image-4.png)
 
 ![alt text](image-5.png)
